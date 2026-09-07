@@ -1,0 +1,8 @@
+# GPU 版安装（CUDA 12.8，Windows）：
+#   pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cu128
+# CPU 版把 index-url 换成 https://download.pytorch.org/whl/cpu
+torch>=2.11
+torchvision
+torchaudio
+numpy
+matplotlib
