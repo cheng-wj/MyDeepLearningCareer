@@ -17,3 +17,7 @@ outputs/
 # OS
 Thumbs.db
 .DS_Store
+
+# TensorBoard 日志
+logs/
+runs/
