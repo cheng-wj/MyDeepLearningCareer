@@ -10,8 +10,8 @@
 3. 写完跑通，再回来勾掉下面清单
 4. 报错先自己读 traceback 最后三行，实在卡住再问
 
-环境（2026-10-01 实测）：conda 环境 `torch` 在 `C:\Users\chengwenjie\.conda\envs\torch`，Python 3.12.14，PyTorch 2.11.0+cu128，GPU 可用（RTX 2060 SUPER）。运行前 `conda activate torch`。
-不使用 conda 时可用绝对路径：`C:\Users\chengwenjie\.conda\envs\torch\python.exe 本目录下的脚本.py`。
+环境（2026-10-01 实测）：conda 环境 `torch` 在 `E:\conda\envs\torch`，Python 3.12.14，PyTorch 2.11.0+cu128，GPU 可用（RTX 2060 SUPER）。运行前 `conda activate torch`。
+不使用 conda 时可用绝对路径：`E:\conda\envs\torch\python.exe 本目录下的脚本.py`。
 数据集自动下载到仓库根目录 `data/`，权重放 `checkpoints/`，TensorBoard 日志放 `logs/`，均已 gitignore。
 
 ## 进度清单

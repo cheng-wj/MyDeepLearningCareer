@@ -49,7 +49,7 @@ v3 有 3 天（10-08 / 10-09 / 10-10）落在工作日，其中 10-10 还是法�
 | 项 | 值 |
 |---|---|
 | Anaconda | `D:\anaconda`（conda 26.7.3，base Python 3.14） |
-| `torch` 环境路径 | `C:\Users\chengwenjie\.conda\envs\torch`（**不在 `D:\anaconda\envs` 下**） |
+| `torch` 环境路径 | `E:\conda\envs\torch`（**不在 `D:\anaconda\envs` 下，也不在用户目录 `.conda\envs` 下**） |
 | Python | 3.12.14 |
 | PyTorch | **2.11.0+cu128** |
 | torchvision / torchaudio | 0.26.0+cu128 / 2.11.0+cu128 |
@@ -66,7 +66,7 @@ python pytorch学习\p04_dir_help.py
 
 **不想开 conda 时用绝对路径**（等价，调试方便）：
 ```
-C:\Users\chengwenjie\.conda\envs\torch\python.exe pytorch学习\p04_dir_help.py
+E:\conda\envs\torch\python.exe pytorch学习\p04_dir_help.py
 ```
 
 ### 重装环境时踩过的三个坑（别再踩）
@@ -181,7 +181,7 @@ CIFAR10(root="./data", train=False, download=True)
 **实际动手做的事**：
 
 1. 定位到 Anaconda 装在 `D:\anaconda`（目录名不是 `anaconda3`），conda 26.7.3 + base Python 3.14
-2. `conda create -n torch python=3.12 -y` → 环境实际落在 `C:\Users\chengwenjie\.conda\envs\torch`，**不在 `D:\anaconda\envs` 下**（conda 新版默认行为）
+2. `conda create -n torch python=3.12 -y` → 环境实际落在 `C:\Users\chengwenjie\.conda\envs\torch`，**不在 `D:\anaconda\envs` 下**（conda 新版默认行为）〔**此处路径记录有误，实际为 `E:\conda\envs\torch`，见文末 21:30 订正**〕
 3. PyTorch 装**错两次**后修正：
    - 第一次混用 `--index-url cu128` + `-i 清华源`，`-i` 顶掉了 `--index-url`，装成 `2.14.1+cpu`（版本号正常但 CUDA 不可用）→ 卸载重来
    - 第二次用阿里云 `mirrors.aliyun.com/pytorch-wheels/cu128/`，返回 200 但非 pip 索引格式，`No matching distribution` → 换源
@@ -210,3 +210,15 @@ CIFAR10(root="./data", train=False, download=True)
 10. **新增前置检查**：Day 1 开头做 GPU 自检 + 提前触发 CIFAR10 下载（当前 `data/` 下只有 MNIST，CIFAR10 尚未下载），把「首次训练时卡在下载」的风险挪到假期第一天暴露
 
 **未改动**：v3 文档本身保留不删（其 C# 对照表、坑点清单、命令清单三节仍被本表引用）；本仓库 README、进度清单、19 个骨架文件均未改动。
+
+### 2026-10-01 21:30 — 环境路径订正（第三次不实描述修正）
+
+**起因**：接入项目核对环境时实测发现，上面 v2 记录的 `torch` 环境路径**是错的**——`C:\Users\chengwenjie\.conda\envs\` 下只有一个 `.conda_envs_dir_test` 目录，没有 `torch` 环境。`conda env list` 显示实际位置是 **`E:\conda\envs\torch`**。
+
+版本号全部属实，**只有路径错**：`torch 2.11.0+cu128` / `torchvision 0.26.0+cu128` / `torch.cuda.is_available() = True` / GPU `NVIDIA GeForce RTX 2060 SUPER` 均已复测通过。
+
+**影响**：上一条 commit 声称「README 两处不实描述订正」，但订正后的路径仍不可用——按 README 复制命令会直接报 `CommandNotFoundException`。上一节「环境已就绪」里的三个路径引用（实测表、日常用法、备用命令）以及根 `README.md`、`pytorch学习/README.md` 里的同类描述，全部照抄了同一个错路径。
+
+**已修**：上述 5 处路径统一改为 `E:\conda\envs\torch`。v2 记录保留原文并加订正标注，不抹掉历史。
+
+**教训固化**：环境信息写「实测」之前要真的执行一次 `conda env list` 或直接调用 `python.exe` 验证，不能凭安装日志推断落盘位置——`conda create` 的实际落盘目录既不在 `D:\anaconda\envs` 也不在用户 `.conda\envs`，而是被 `envs_dirs` 配置指到了 `E:\conda\envs`。

@@ -5,7 +5,7 @@
 ## 环境
 
 - Anaconda 装在 `D:\anaconda`（conda 26.7.3，base 为 Python 3.14）
-- conda 环境 `torch` 建在 `C:\Users\chengwenjie\.conda\envs\torch`（Python 3.12.14）
+- conda 环境 `torch` 建在 `E:\conda\envs\torch`（Python 3.12.14）
 - 实测版本：PyTorch 2.11.0+cu128 / torchvision 0.26.0+cu128 / torchaudio 2.11.0+cu128，`torch.cuda.is_available()` = **True**
 - 显卡：NVIDIA GeForce RTX 2060 SUPER（8GB，驱动 617.14，CUDA 12.8）
 - 重建环境：
@@ -18,7 +18,7 @@ pip install torch torchvision torchaudio --index-url https://mirror.nju.edu.cn/p
 ```
 
 > 激活环境后如果 `conda` 命令不认，直接用绝对路径调用：
-> `C:\Users\chengwenjie\.conda\envs\torch\python.exe xxx.py`
+> `E:\conda\envs\torch\python.exe xxx.py`
 
 ## 学习路线
 
