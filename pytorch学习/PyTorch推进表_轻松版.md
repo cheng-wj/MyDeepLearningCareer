@@ -75,14 +75,34 @@ E:\conda\envs\torch\python.exe pytorch学习\p04_dir_help.py
 2. **国内装 cu128 要用南大镜像**：`--index-url https://mirror.nju.edu.cn/pytorch/whl/cu128/`（实测 21.6 MB/s，2.8GB 用 89 秒；官方源慢十几倍）。
 3. **阿里云那个路径不能用**：`https://mirrors.aliyun.com/pytorch-wheels/cu128/` 返回 200 但不是 pip 索引格式，pip 报 `No matching distribution`。
 
+### 下载 CIFAR10 踩过的坑（2026-10-01 晚实测，别再踩）
+
+1. **国内镜像全是 404，网上那些文章是编的。** 逐个实测：`mirrors.tuna.tsinghua.edu.cn/cifar/...` ❌ 404、`mirror.azure.cn/pytorch-data/cifar/...` ❌ 404、`mirrors.aliyun.com/pytorch-datasets/...` ❌ 404。CSDN / 文库那批「国内镜像实测快 8 倍」的文章附的 wget 命令全部无效。**别照抄搜索结果，动手前先 curl 测一下。**
+2. **torchvision 的 `download=True` 不支持断点续传。** 官方源 `cs.toronto.edu` 从国内 20 分钟内断了两次（78 MB / 13 分钟，约 98 KB/s）。断一次就从 0% 重来。
+3. **`File not found or corrupted.` 是误导性报错。** 实际是 TLS 握手中断（`curl: (56) schannel: server closed abruptly`），文件没坏，只是没下完。
+4. **`curl --retry` 对错误码 56 不重试。** 它不在 curl 默认的可重试白名单里，得 `--retry-all-errors`（Windows 自带 curl 版本不一定支持）。**可靠做法是写重试循环**，每轮先算 MD5，没对上就从当前文件大小 `-C -` 续传。
+
+**可直接复用的续传命令**（已验证有效，最终 MD5 与官方一致）：
+```powershell
+$py='E:\conda\envs\torch\python.exe'; $f='data\cifar-10-python.tar.gz'
+$url='https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz'
+for ($i=1; $i -le 60; $i++) {
+  & $py -c "import hashlib,os,sys;sys.exit(0 if os.path.exists(r'$f') and hashlib.md5(open(r'$f','rb').read()).hexdigest()=='c58f30108f718f92721af3b95e74349a' else 1)"
+  if ($LASTEXITCODE -eq 0) { "MD5 OK"; break }
+  curl.exe -C - -L --connect-timeout 30 --speed-time 90 --speed-limit 500 -o $f $url
+}
+& $py -c "import tarfile;tarfile.open(r'$f').extractall('data',filter='data')"
+```
+
+**CIFAR-10 官方校验值**（下完必须比对，否则 loss 震荡九成是数据坏了）：
+- `cifar-10-python.tar.gz` 大小 `170498071` 字节，MD5 `c58f30108f718f92721af3b95e74349a`
+- 解压后目录 `data/cifar-10-batches-py/`，用 `CIFAR10(root="./data", download=False)` 加载
+
 ### 下一步（明天 10-02）
 
-CIFAR10 **还没下载**（`data/` 下目前只有 MNIST）。Day 2 一开始先跑这句预下载，免得训练时被下载卡住：
-```python
-from torchvision.datasets import CIFAR10
-CIFAR10(root="./data", train=True, download=True)
-CIFAR10(root="./data", train=False, download=True)
-```
+**CIFAR10 已就绪**（2026-10-01 23:38 完成，MD5 校验通过，50000 训练 + 10000 测试已实测可加载）。`data/` 下现有 `MNIST/` 和 `cifar-10-batches-py/`，Day 2 不用再管下载。
+
+明天开局顺序：**先跑 `p04_dir_help.py`（P04）→ 再进 `p07_dataset.py`（P07）**，两个加起来约 40 分钟，2h 额度绰绰有余。
 
 ---
 
@@ -222,3 +242,19 @@ CIFAR10(root="./data", train=False, download=True)
 **已修**：上述 5 处路径统一改为 `E:\conda\envs\torch`。v2 记录保留原文并加订正标注，不抹掉历史。
 
 **教训固化**：环境信息写「实测」之前要真的执行一次 `conda env list` 或直接调用 `python.exe` 验证，不能凭安装日志推断落盘位置——`conda create` 的实际落盘目录既不在 `D:\anaconda\envs` 也不在用户 `.conda\envs`，而是被 `envs_dirs` 配置指到了 `E:\conda\envs`。
+
+### 2026-10-01 23:38 — CIFAR10 下载完成，下载坑已记录
+
+**起因**：Day 2 开局前置（预下载 CIFAR10）提前到 Day 1 夜里做，避免明天训练时卡在下载。计划内的 P04 / P07 仍然顺延到 10-02，不在今晚补。
+
+**实际过程**：
+1. `CIFAR10(download=True)` 跑到 48% 抛 `File not found or corrupted.`（实为 TLS 握手中断，文件没坏）
+2. 换 `curl -C -` 续传，跑到 61% 又断（`curl: (56) schannel: server closed abruptly`）
+3. 发现 `curl --retry` 对错误码 56 不重试 —— 不在默认可重试白名单里
+4. 改写无条件重试循环：每轮先算 MD5，没对上就 `-C -` 续传。第 2 轮以 430 KB/s 拿下剩余 61.2MB（比前两次快 5 倍）
+
+**结果**：`data/cifar-10-batches-py/` 已就绪，MD5 `c58f30108f718f92721af3b95e74349a` 与官方一致，`CIFAR10(download=False)` 实测 50000 训练 + 10000 测试可正常加载。
+
+**同时查明**：网上推荐的三个国内镜像（清华 TUNA / Azure 中国 / 阿里云）**实测全部 404**，相关 CSDN 文章的 URL 是编的。ModelScope 与 OpenDataLab 有数据但格式不对、还要装 SDK。详见上方「下载 CIFAR10 踩过的坑」一节，含可复用续传命令。
+
+**Day 1 收尾状态**：环境 ✅ / P04 ⬜ / P07 ⬜。今晚一行学习代码没写，按「允许顺延、禁止回补」处理，进度未落后。

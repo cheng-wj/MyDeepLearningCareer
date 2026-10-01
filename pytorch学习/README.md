@@ -19,7 +19,7 @@
 - [x] P01 PyTorch 环境配置（已完成）
 - [x] P02 编辑器安装配置（PyCharm / VS Code 都已就绪）
 - [x] P03 FAQ：cuda.is_available 返回 False（环境已验证 True）
-- [ ] P04 两大法宝函数 dir() / help() → `p04_dir_help.py`
+- [x] P04 两大法宝函数 dir() / help() → `p04_dir_help.py`
 - [x] P05 PyCharm/Jupyter 使用（环境已就绪，可跳过）
 - [ ] P06 加载数据初认识（概念，看视频即可）
 - [ ] P07 Dataset 类代码实战 → `p07_dataset.py`
