@@ -31,15 +31,15 @@ python pytorch学习\p04_dir_help.py
 ## 项目结构
 
 - `01-pytorch-basics/` — 已完成的四课：张量、autograd、MLP 双月、MNIST CNN
-- `pytorch学习/` — 小土堆教程跟练骨架（`p04` … `p32`）+ 进度清单 + 两份推进表
+- `pytorch学习/` — 小土堆教程跟练骨架（`p04` … `p32`）+ 进度清单 + 推进表（当前执行依据 `PyTorch推进表_场次制.md`；两份旧表存档）
 - `data/` `checkpoints/` `outputs/` `logs/` — 运行产物，已 gitignore，不入库
 - `requirements.txt` / `README.md` / `.gitignore`
 
 ## 执行依据
 
-`pytorch学习/PyTorch推进表_轻松版.md` 是**当前唯一执行依据**（取代 v3 的 `国庆节PyTorch推进表.md`，但 v3 的 C# ↔ PyTorch 对照表、常见坑点、备用命令三节仍被引用，勿删）。修订记录写在该文档末尾。
+`pytorch学习/PyTorch推进表_场次制.md` 是**当前唯一执行依据**（2026-10-13 取代 `PyTorch推进表_轻松版.md` 与更早的 v3 `国庆节PyTorch推进表.md`；两份旧表保留不删、不再改动，其环境实测、踩坑记录、C# ↔ PyTorch 对照表、常见坑点、备用命令仍被引用）。修订记录写在该文档末尾。
 
-节奏原则：1.5–2h/天是上限不是配额；允许顺延、禁止回补；只验收「能跑通的东西」，不验收完成的动作数。
+节奏原则：每周 2 场（周中晚 3h + 周末下午按有效 3.5h 计）是上限不是配额；允许顺延、禁止回补；只验收「能跑通的东西」，不验收完成的动作数。
 
 ## 代码风格
 
@@ -58,11 +58,11 @@ python pytorch学习\p04_dir_help.py
 ## 文档一致性
 
 README 和推进表里的环境信息**曾经两次写成不实内容**，改环境后必须同步订正这三处：
-根 `README.md`、`pytorch学习/README.md`、`pytorch学习/PyTorch推进表_轻松版.md`。写"实测"之前先真的跑一遍验证。
+根 `README.md`、`pytorch学习/README.md`、`pytorch学习/PyTorch推进表_场次制.md`。写"实测"之前先真的跑一遍验证。
 
 ## 工作流约定
 
 - **练习/任务完成 → 主动同步推进表顶部 callout，不用每次问**（2026-10-02 定）。
-  适用范围：本仓库所有 `pXX_*.py` 跟练完成时。callout 位置：[PyTorch推进表_轻松版.md](pytorch学习/PyTorch推进表_轻松版.md) 标题下、原「取代 v3」说明之前。
+  适用范围：本仓库所有 `pXX_*.py` 跟练完成时。callout 位置：[PyTorch推进表_场次制.md](pytorch学习/PyTorch推进表_场次制.md) 标题下、取代说明之前。
   原口径「完成 → 问要不要更新 → 等确认 → 改」改为「完成 → 直接改 callout + 汇报」。
   起因：用户原话「我弄完了你应该主动更新进度」。
