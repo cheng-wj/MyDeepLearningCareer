@@ -1,5 +1,8 @@
 # PyTorch 学习（跟练小土堆教程）
 
+> 📍 **当前执行依据：`PyTorch推进表_半月制.md`**（2026-10-28 起，取代场次制表）
+> 下一场：**S1**（10-28 周三 20:00–22:00）→ P06 快进 + P07 Dataset + P14 torchvision 数据集
+
 配套视频：小土堆《PyTorch深度学习快速入门教程》
 链接：https://www.bilibili.com/video/BV1hE411t7RN （共 33 集，约 10 小时）
 

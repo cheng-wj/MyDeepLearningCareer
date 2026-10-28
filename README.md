@@ -22,6 +22,9 @@ pip install torch torchvision torchaudio --index-url https://mirror.nju.edu.cn/p
 
 ## 学习路线
 
+> 当前进度与推进安排见 `pytorch学习/PyTorch推进表_半月制.md`（2026-10-28 起为唯一执行依据）。
+> 下一场：**S1**（10-28 周三 20:00–22:00）→ P06 快进 + P07 Dataset + P14 torchvision 数据集。
+
 - [x] **01. PyTorch 基础**（`01-pytorch-basics/`）
   - [x] 01 张量基础：创建、形状、GPU、广播
   - [x] 02 自动求导：autograd 与手写训练循环
