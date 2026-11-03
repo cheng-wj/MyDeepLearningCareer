@@ -1,7 +1,7 @@
 # PyTorch 学习（跟练小土堆教程）
 
 > 📍 **当前执行依据：`PyTorch推进表_半月制.md`**（2026-10-28 起，取代场次制表）
-> 下一场：**S1**（10-28 周三 20:00–22:00）→ P06 快进 + P07 Dataset + P14 torchvision 数据集
+> 下一场：**S1** → P06 快进 + P07 Dataset + P14 torchvision 数据集（10-28 起 S1–S4 未执行，顺延不回补）
 
 配套视频：小土堆《PyTorch深度学习快速入门教程》
 链接：https://www.bilibili.com/video/BV1hE411t7RN （共 33 集，约 10 小时）
@@ -13,9 +13,9 @@
 3. 写完跑通，再回来勾掉下面清单
 4. 报错先自己读 traceback 最后三行，实在卡住再问
 
-环境（2026-10-01 实测）：conda 环境 `torch` 在 `E:\conda\envs\torch`，Python 3.12.14，PyTorch 2.11.0+cu128，GPU 可用（RTX 2060 SUPER）。运行前 `conda activate torch`。
-不使用 conda 时可用绝对路径：`E:\conda\envs\torch\python.exe 本目录下的脚本.py`。
-数据集自动下载到仓库根目录 `data/`，权重放 `checkpoints/`，TensorBoard 日志放 `logs/`，均已 gitignore。
+环境（两台机路径/版本不同，**先对一眼自己这台机**）：个人机 `DESKTOP-GHMSTA8` 用 `E:\conda\envs\torch\python.exe`（Python 3.12.14 / torch 2.11.0+cu128 / tv 0.26.0+cu128 / RTX 2060 SUPER 8GB）；公司机 `DESKTOP-R4RRO1S` 用 `D:\anaconda3\envs\torch\python.exe`（Python 3.11.16 / torch 2.14.0+cu126 / tv 0.29.0+cu126 / RTX 2060 6GB）。两机 `torch.cuda.is_available()` 均为 True，显卡同属 Turing sm_61，代码通用。完整对照见根 `README.md`「环境（双机对照）」。
+运行前 `conda activate torch`；不使用 conda 时直接用上面对应的绝对路径调 python.exe。
+数据集自动下载到仓库根目录 `data/`，权重放 `checkpoints/`，TensorBoard 日志放 `logs/`，均已 gitignore。**个人机上 `data/` 已就绪；公司机 `data/` 是空的，要重新下载。**
 
 ## 进度清单
 

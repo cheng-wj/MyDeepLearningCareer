@@ -2,28 +2,55 @@
 
 我的深度学习学习仓库，从 PyTorch 基础开始，逐步走向 CV、目标检测和更复杂的项目。
 
-## 环境
+## 环境（双机对照）
 
-- Anaconda 装在 `D:\anaconda`（conda 26.7.3，base 为 Python 3.14）
-- conda 环境 `torch` 建在 `E:\conda\envs\torch`（Python 3.12.14）
-- 实测版本：PyTorch 2.11.0+cu128 / torchvision 0.26.0+cu128 / torchaudio 2.11.0+cu128，`torch.cuda.is_available()` = **True**
-- 显卡：NVIDIA GeForce RTX 2060 SUPER（8GB，驱动 617.14，CUDA 12.8）
-- 重建环境：
+两台机都能跑本仓库，**版本和路径都不一样** —— 开工前先对一眼自己这台机的解释器路径，别把个人机的路径带到公司机上。
+
+| 项 | 个人机 `DESKTOP-GHMSTA8` | 公司机 `DESKTOP-R4RRO1S` |
+|---|---|---|
+| 仓库路径 | `E:\MyDeepLearningCareer` | `D:\个人文件\我的仓库\MyDeepLearningCareer` |
+| conda 根 | `D:\anaconda`（conda 26.7.3，base Python 3.14） | `D:\anaconda3`（conda 24.5.0，base Python 3.12.4） |
+| **解释器（最稳）** | `E:\conda\envs\torch\python.exe` | `D:\anaconda3\envs\torch\python.exe` |
+| Python | 3.12.14 | 3.11.16 |
+| PyTorch | 2.11.0+cu128 | 2.14.0+cu126 |
+| torchvision | 0.26.0+cu128 | 0.29.0+cu126 |
+| torchaudio | 2.11.0+cu128 | 未装（本项目用不到） |
+| 显卡 | NVIDIA RTX 2060 SUPER（8GB） | NVIDIA RTX 2060（6GB） |
+| 显卡架构 | Turing sm_61 | Turing sm_61 —— **一致，代码通用** |
+| 驱动 / 驱动支持 CUDA | 617.14 / 12.8 | 591.74 / 13.1 |
+| torch 内置 CUDA | cu128 | cu126（cudnn 91002） |
+| `torch.cuda.is_available()` | True | True（2026-11-02 实测 GPU matmul 通过） |
+| 数据集 `data/` | MNIST + CIFAR10 已就绪 | **空，需重新下载** |
+
+> 个人机列实测于 2026-10-01；公司机列实测于 2026-11-02（脚本链路 `p04` 跑通、CUDA 端到端 matmul 通过、`torch.cuda.is_available()` = True）。
+> 公司机只有 C、D 两个盘，没有 E 盘；`F:\我的知识库` 所在的外接硬盘盒未挂载时，记忆库取不到。
+
+### 重建环境
 
 ```powershell
+# 个人机（cu128）
 conda create -n torch python=3.12 -y
 conda activate torch
 # 国内下载 cu128 版用南京大学镜像（官方源在国内很慢；清华源只有 CPU 版，会装错）
 pip install torch torchvision torchaudio --index-url https://mirror.nju.edu.cn/pytorch/whl/cu128/
+
+# 公司机（cu126，公司机上的 torch 环境原本是 2.14.0+cu126 / 0.29.0+cu126）
+conda create -n torch python=3.11 -y
+conda activate torch
+pip install torch torchvision --index-url https://mirror.nju.edu.cn/pytorch/whl/cu126/
 ```
 
 > 激活环境后如果 `conda` 命令不认，直接用绝对路径调用：
-> `E:\conda\envs\torch\python.exe xxx.py`
+> - 个人机：`E:\conda\envs\torch\python.exe xxx.py`
+> - 公司机：`D:\anaconda3\envs\torch\python.exe xxx.py`
+>
+> 国内装 GPU 版只用南大镜像；**不要混用 `-i` 清华源**（会顶掉 `--index-url`，装成 CPU 版）。
 
 ## 学习路线
 
 > 当前进度与推进安排见 `pytorch学习/PyTorch推进表_半月制.md`（2026-10-28 起为唯一执行依据）。
-> 下一场：**S1**（10-28 周三 20:00–22:00）→ P06 快进 + P07 Dataset + P14 torchvision 数据集。
+> 下一场：**S1** → P06 快进 + P07 Dataset + P14 torchvision 数据集。
+> （10-28 起的 S1–S4 档期已过且未执行，按「允许顺延、禁止回补」依次往后排。）
 
 - [x] **01. PyTorch 基础**（`01-pytorch-basics/`）
   - [x] 01 张量基础：创建、形状、GPU、广播

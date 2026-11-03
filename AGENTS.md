@@ -13,20 +13,34 @@
 
 ## 环境
 
-conda 环境 `torch` **实际路径 `E:\conda\envs\torch`**（Python 3.12.14 / PyTorch 2.11.0+cu128 / torchvision 0.26.0+cu128，`torch.cuda.is_available()` = True，RTX 2060 SUPER 8GB）。
+**两台机都能跑本仓库，路径和版本全不一样 —— 动手前先 `hostname` 认机器，别抄错解释器路径。**
+
+| 项 | 个人机 `DESKTOP-GHMSTA8` | 公司机 `DESKTOP-R4RRO1S` |
+|---|---|---|
+| 仓库路径 | `E:\MyDeepLearningCareer` | `D:\个人文件\我的仓库\MyDeepLearningCareer` |
+| **解释器** | `E:\conda\envs\torch\python.exe` | `D:\anaconda3\envs\torch\python.exe` |
+| conda 根 | `D:\anaconda`（conda 26.7.3） | `D:\anaconda3`（conda 24.5.0） |
+| Python | 3.12.14 | 3.11.16 |
+| PyTorch / torchvision | 2.11.0+cu128 / 0.26.0+cu128 | 2.14.0+cu126 / 0.29.0+cu126 |
+| GPU | RTX 2060 SUPER（8GB），驱动 617.14 | RTX 2060（6GB），驱动 591.74 |
+| 显卡架构 | Turing sm_61 | Turing sm_61（一致，代码通用） |
+| `torch.cuda.is_available()` | True | True（2026-11-02 实测 GPU matmul 通过） |
+| `data/` | MNIST + CIFAR10 已就绪 | **空，要重新下载** |
 
 ```powershell
-# 方式一：绝对路径（最稳，任何终端都能用）
-E:\conda\envs\torch\python.exe pytorch学习\p04_dir_help.py
+# 方式一：绝对路径（最稳，任何终端都能用）—— 换机器就换这一行
+E:\conda\envs\torch\python.exe pytorch学习\p04_dir_help.py          # 个人机
+D:\anaconda3\envs\torch\python.exe pytorch学习\p04_dir_help.py       # 公司机
 
 # 方式二：conda 激活
 conda activate torch
-cd E:\MyDeepLearningCareer
 python pytorch学习\p04_dir_help.py
 ```
 
-装依赖：`pip install -r requirements.txt --index-url https://mirror.nju.edu.cn/pytorch/whl/cu128/`
-国内装 cu128 版只用南大镜像；**不要混用 `-i` 清华源**，它会顶掉 `--index-url` 并装成 CPU 版（版本号看着正常但 CUDA 不可用）。
+装依赖：`pip install -r requirements.txt --index-url https://mirror.nju.edu.cn/pytorch/whl/cu128/`（公司机按 cu126 换 URL）
+国内装 GPU 版只用南大镜像；**不要混用 `-i` 清华源**，它会顶掉 `--index-url` 并装成 CPU 版（版本号看着正常但 CUDA 不可用）。
+
+> 完整双机对照表在 [PyTorch推进表_半月制.md](pytorch学习/PyTorch推进表_半月制.md) 第八节（含实测日期与踩坑指向）。
 
 ## 项目结构
 
@@ -58,11 +72,14 @@ python pytorch学习\p04_dir_help.py
 ## 文档一致性
 
 README 和推进表里的环境信息**曾经两次写成不实内容**，改环境后必须同步订正这三处：
-根 `README.md`、`pytorch学习/README.md`、`pytorch学习/PyTorch推进表_场次制.md`。写"实测"之前先真的跑一遍验证。
+根 `README.md`、`pytorch学习/README.md`、`pytorch学习/PyTorch推进表_半月制.md`（第八节环境速查 = **双机对照表，个人机 / 公司机各一列**，2026-11-02 起）。
+写"实测"之前先真的跑一遍验证；`PyTorch推进表_场次制.md` 已退役、保留不删不再改动，里面的单机口径以半月制表第八节为准。
+**改环境的口径**：两台机都要能直接用 → 写成对照表，不要用一机的值覆盖另一机；用户在哪台机跑，就对照哪一列。
 
 ## 工作流约定
 
 - **练习/任务完成 → 主动同步推进表顶部 callout，不用每次问**（2026-10-02 定）。
-  适用范围：本仓库所有 `pXX_*.py` 跟练完成时。callout 位置：[PyTorch推进表_场次制.md](pytorch学习/PyTorch推进表_场次制.md) 标题下、取代说明之前。
+  适用范围：本仓库所有 `pXX_*.py` 跟练完成时。callout 位置：[PyTorch推进表_半月制.md](pytorch学习/PyTorch推进表_半月制.md) 标题下、取代说明之前。
   原口径「完成 → 问要不要更新 → 等确认 → 改」改为「完成 → 直接改 callout + 汇报」。
   起因：用户原话「我弄完了你应该主动更新进度」。
+  顺延说明：档期过了还没做的场次，callout 里写「下一场仍是 Sx + 顺延不回补」，**不写成已做**。

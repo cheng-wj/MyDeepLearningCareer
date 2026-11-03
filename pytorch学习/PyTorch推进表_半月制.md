@@ -1,14 +1,15 @@
 # PyTorch 推进表 · 半月制
 
-> 📍 **当前进度（2026-10-28 建表）**
+> 📍 **当前进度（2026-11-02 更新）**
 >
-> - 已有基础：环境 ✅ / P04 ✅ / CIFAR10+MNIST 数据 ✅（`data/` 下已就绪，不用再下载）
-> - **下一场：S1**（**今晚 10-28 周三 20:00–22:00**）→ P06 快进 + P07 Dataset 实战 + P14 torchvision 数据集
+> - 已有基础：环境 ✅（两台机均已实测，见第八节双机对照表） / P04 ✅ / 数据集：个人机已就绪，**公司机 `data/` 为空、要重新下载**
+> - **下一场：S1** → P06 快进 + P07 Dataset 实战 + P14 torchvision 数据集
+> - **S1–S4（10-28 / 10-30 / 10-31 / 11-01 四个档期）一场未做**，按「允许顺延、禁止回补」依次往后排；顺延后及格线（S6）与收官（S8）时间同步顺延，按实际开档日重新算
 > - 主线 8 场（S1–S8）覆盖剩余全部内容 P07–P33；S9/S10 是缓冲场
-> - 预估：**及格线（S6）11-05 前后** / **全部收完 11-08 前后** / 封顶缓冲 **11-11**
 >
 > 本表 2026-10-28 建立，取代 `PyTorch推进表_场次制.md` 作为**唯一执行依据**。
 > 前两代表（场次制、轻松版、国庆节 v3）**保留不删**，它们的环境实测、踩坑记录、C# ↔ PyTorch 对照表、常见坑点、备用命令仍然有效，本表直接引用，不重复抄。
+> ⚠️ 环境实测（第八节）已改为**双机对照表**：个人机 `DESKTOP-GHMSTA8` 与公司机 `DESKTOP-R4RRO1S` 的解释器路径、Python、torch 版本、显卡显存全都不一样，**开工前先认机器**。
 
 ---
 
@@ -132,24 +133,45 @@
 
 ---
 
-## 八、环境速查（2026-10-01 实测）
+## 八、环境速查（双机对照）
 
-| 项 | 值 |
-|---|---|
-| 解释器（最稳） | `E:\conda\envs\torch\python.exe` |
-| conda 方式 | `conda activate torch` —— Anaconda 在 `D:\anaconda`，环境在 `E:\conda\envs\torch`（不在 D 盘、也不在用户目录） |
-| PyTorch / torchvision | 2.11.0+cu128 / 0.26.0+cu128 |
-| GPU | NVIDIA RTX 2060 SUPER（8GB），`torch.cuda.is_available()` = True |
-| 数据集 | `data/` 下 MNIST、CIFAR10 均已就绪，**不用再下载** |
-| 产物 | 权重 `checkpoints/`、日志 `logs/`、图片 `outputs/`（均已 gitignore） |
+### 开工前先认机器
 
-```powershell
-# 运行示例（在仓库根目录执行）
-E:\conda\envs\torch\python.exe pytorch学习\p07_dataset.py
+```bash
+hostname     # DESKTOP-GHMSTA8 = 个人机；DESKTOP-R4RRO1S = 公司机
 ```
 
-- 装依赖只用南大镜像：`pip install -r requirements.txt --index-url https://mirror.nju.edu.cn/pytorch/whl/cu128/`；**不要混用 `-i` 清华源**（会顶掉 `--index-url`，装成 CPU 版）。
+**两台机的解释器路径、Python、torch 版本、显卡显存都不一样**，抄错路径就是「命令不存在」，别靠猜。
+
+| 项 | 个人机 `DESKTOP-GHMSTA8` | 公司机 `DESKTOP-R4RRO1S` |
+|---|---|---|
+| 仓库路径 | `E:\MyDeepLearningCareer` | `D:\个人文件\我的仓库\MyDeepLearningCareer` |
+| conda 根 | `D:\anaconda`（conda 26.7.3，base Python 3.14） | `D:\anaconda3`（conda 24.5.0，base Python 3.12.4） |
+| **解释器（最稳）** | `E:\conda\envs\torch\python.exe` | `D:\anaconda3\envs\torch\python.exe` |
+| conda 方式 | `conda activate torch`（环境在 E 盘，不在 conda 根目录、也不在用户目录） | `conda activate torch`（环境在 `D:\anaconda3\envs\torch`） |
+| Python | 3.12.14 | 3.11.16 |
+| PyTorch / torchvision | 2.11.0+cu128 / 0.26.0+cu128 | 2.14.0+cu126 / 0.29.0+cu126 |
+| torchaudio | 2.11.0+cu128 | 未装（本项目用不到） |
+| GPU | NVIDIA RTX 2060 SUPER（8GB），驱动 617.14，驱动支持 CUDA 12.8 | NVIDIA RTX 2060（6GB），驱动 591.74，驱动支持 CUDA 13.1 |
+| 显卡架构 | Turing sm_61 | Turing sm_61 —— **一致，代码通用** |
+| torch 内置 CUDA | cu128 | cu126（cudnn 91002） |
+| `torch.cuda.is_available()` | True | True（2026-11-02 实测 GPU matmul 通过） |
+| 数据集 `data/` | MNIST、CIFAR10 均已就绪，**不用再下载** | **空，需重新下载** |
+| 产物 | 权重 `checkpoints/`、日志 `logs/`、图片 `outputs/`（均已 gitignore） | 同左 |
+
+> 个人机列实测于 2026-10-01，公司机列实测于 2026-11-02（`p04` 脚本跑通 + CUDA 端到端 matmul 通过）。
+> 公司机只有 C、D 两个盘，**没有 E 盘**；记忆库原在 `F:\我的知识库`（外接硬盘盒），**2026-11-03 已迁到 `D:\个人文件\我的仓库\我的知识库`（内盘）**——外接硬盘盒再掉线也不影响跨机同步。
+
+```powershell
+# 运行示例（在仓库根目录执行）—— 个人机
+E:\conda\envs\torch\python.exe pytorch学习\p07_dataset.py
+# 公司机
+D:\anaconda3\envs\torch\python.exe pytorch学习\p07_dataset.py
+```
+
+- 装依赖只用南大镜像：`pip install -r requirements.txt --index-url https://mirror.nju.edu.cn/pytorch/whl/cu128/`（公司机按 cu126 换 URL）；**不要混用 `-i` 清华源**（会顶掉 `--index-url`，装成 CPU 版）。
 - 装环境 / CIFAR10 下载的完整踩坑记录 → `PyTorch推进表_轻松版.md`「环境已就绪」节。
+- 旧的单机口径（只写个人机）仍留在 `PyTorch推进表_场次制.md` 第八节，**该表已退役**，以本节为准。
 
 ---
 
