@@ -6,6 +6,7 @@
 > - **下一场：S1** → P06 快进 + P07 Dataset 实战 + P14 torchvision 数据集
 > - **S1–S4（10-28 / 10-30 / 10-31 / 11-01 四个档期）一场未做**，按「允许顺延、禁止回补」依次往后排；顺延后及格线（S6）与收官（S8）时间同步顺延，按实际开档日重新算
 > - **P07 ⬜ 待自己写** —— 10-28 曾由 Claude 代写跑通过（40 样本 / shape [3,32,32] / 标签 0-1），**但用户把文件还原成了原始骨架，代写版已丢弃 → 这一集的价值就是自己写一遍**
+> - **⛔ 前置阶段：Python 基础 7 天（11-04 起，先于 S1）** —— 看 P07 视频时发现 Python 语法不过关（类 / 继承 / 魔术方法全卡），改走 `Python基础/Python学习计划-7天.md`（小甲鱼 86 集选看 7 天，约 14h）。**Python 毕业线达成后才回 S1**
 > - 主线 8 场（S1–S8）覆盖剩余全部内容 P07–P33；S9/S10 是缓冲场
 >
 > 本表 2026-10-28 建立，取代 `PyTorch推进表_场次制.md` 作为**唯一执行依据**。
@@ -105,7 +106,8 @@
 
 | 层级 | 标准 | 什么时候算到 |
 |---|---|---|
-| **及格** | CIFAR10 训练脚本跑完 1 epoch，loss 前 100 step 有下降趋势 | **S6**（11-05 场） |
+| **Python 毕业** | `Python基础/` 毕业考 5 题全过（3 条毕业线见计划第一节） | **D7**（Python 阶段末，先于及格线） |
+| **及格** | CIFAR10 训练脚本跑完 1 epoch，loss 前 100 step 有下降趋势 | **S6**（顺延后按实际档期） |
 | 及格 + | 验证脚本能加载 checkpoint 算出 accuracy | **S8**（11-08 场） |
 | 加分 | GPU 训练跑通 | **S7**（11-07 场） |
 | 加分 + | test acc > 10% | S8 顺手看 |
@@ -158,6 +160,7 @@ hostname     # DESKTOP-GHMSTA8 = 个人机；DESKTOP-R4RRO1S = 公司机
 | torch 内置 CUDA | cu128 | cu126（cudnn 91002） |
 | `torch.cuda.is_available()` | True | True（2026-11-02 实测 GPU matmul 通过） |
 | 数据集 `data/` | MNIST、CIFAR10 均已就绪，**不用再下载** | **空，需重新下载** |
+| 学 Python 语法用 | `py -3`（3.12.3 + numpy 2.4.6，实测 2026-11-04） | `py -3`（**本机实测 3.12.3 + numpy 2.4.6**；个人机未实测，用 `py -3 --version` 现查） |
 | 产物 | 权重 `checkpoints/`、日志 `logs/`、图片 `outputs/`（均已 gitignore） | 同左 |
 
 > 个人机列实测于 2026-10-01，公司机列实测于 2026-11-02（`p04` 脚本跑通 + CUDA 端到端 matmul 通过）。
@@ -176,7 +179,41 @@ D:\anaconda3\envs\torch\python.exe pytorch学习\p07_dataset.py
 
 ---
 
-## 九、引用
+## 九、Python 前置阶段（2026-11-04 起，先于 S1）
+
+**触发原因**：看 P07 视频时发现 Python 语法不过关 —— 类、继承、`__getitem__` 这些是 PyTorch 的**门槛**，不是深度学习本身难。硬写 P07 只会一直卡在语法上。
+
+**依据**：`Python基础/Python学习计划-7天.md`（小甲鱼《零基础入门学习Python》86 集里选看约一半，7 天约 14h）
+
+| 阶段 | 时长 | 内容 | 关卡（骨架已备，实现自己写） |
+|---|---|---|---|
+| Python D1 | 2h | 变量 / 字符串 / 数字 / 布尔 / 分支循环 | `Python基础/d1_公差判定.py` |
+| Python D2 | 2h | 列表 / 切片 / 推导式 / 深浅拷贝 | `Python基础/d2_列表与切片.py` |
+| Python D3 | 2h | 元组 / 字符串方法 / 字典 / zip / enumerate | `Python基础/d3_字典与表格.py` |
+| Python D4 | 2h | 函数 / 默认值 / `*args` / `**kwargs` / 类型注释 | `Python基础/d4_函数.py` |
+| Python D5 | 2.5h | 类 / 继承 / `self` / `super()` | `Python基础/d5_类与对象.py` |
+| Python D6 | 2.5h | `__getitem__` / `__call__` / 模块 / 异常 | `Python基础/d6_模块与异常.py` |
+| Python D7 | 1.5h | 毕业考 5 题 | `Python基础/d7_毕业考.py` |
+
+**和 PyTorch 主线的接口**（D5/D6 学的直接对应后面集数）：
+
+| Python 学的 | PyTorch 里的对应物 |
+|---|---|
+| `__init__` / `super().__init__()` | `nn.Module.__init__` 里注册子模块 |
+| `forward(self, x)` | `nn.Module` 的前向 |
+| `__call__` | `model(x)` 为什么会跑 forward |
+| `__getitem__` / `__len__` | `Dataset` 的两条协议 |
+| 字典 | `model.state_dict()` |
+
+**降档规则**：可砍 D2 的拷贝细节、D4 的内省；**不许砍 D5、D6**（门槛本身），也不许砍 D7 毕业考（不考等于没学）。
+
+**跑法**：`py -3 Python基础\d1_公差判定.py`（公司机 `py -3` = 3.12.3 + numpy 2.4.6，实测 2026-11-04）
+
+**随时翻**：`Python基础/numpy与Tensor对照.md`（shape / 广播 / 布尔索引）
+
+---
+
+## 十、引用
 
 - **C# ↔ PyTorch 对照表** → `国庆节PyTorch推进表.md` 第四节
 - **常见坑点**（`num_workers` 在 Windows 报错、`zero_grad` 忘记、Compose 顺序写反…）→ `国庆节PyTorch推进表.md` 第五节
@@ -188,6 +225,21 @@ D:\anaconda3\envs\torch\python.exe pytorch学习\p07_dataset.py
 ---
 
 ## 修订记录
+
+### 2026-11-04 — 插入 Python 前置阶段
+
+**背景**：看 P07 视频后判断「Python 代码完全不会」——卡的不是深度学习，是语法（类、继承、魔术方法）。用户自制了 7 天 Python 计划（小甲鱼 86 集选看），本表据此插入前置阶段，PyTorch 主线整体顺延。
+
+**本表新增**：
+1. 顶部 callout 加「⛔ 前置阶段：Python 基础 7 天（11-04 起，先于 S1）」；
+2. 新增第九节「Python 前置阶段」：7 天关卡表 + 与 PyTorch 主线的接口对照（`__init__`↔`nn.Module`、`__getitem__`↔`Dataset`……）+ 降档规则；
+3. 第五节里程碑加「Python 毕业」层级，置于及格线之上；
+4. 第八节环境速查加一行「学 Python 语法用 `py -3`」（公司机实测 3.12.3 + numpy 2.4.6）。
+
+**同步落地的配套件**（新建 `Python基础/`）：
+- `Python学习计划-7天.md` —— 用户自制计划（Qoder 生成）入库，**第九节按公司机实测改写**：删掉「装 CPU 版 torch / uv venv / Qoder 临时目录」（与本机已有的 CUDA 版 torch 冲突），主线改回小土堆；
+- `d1`–`d7` 关卡骨架 —— 只有知识点提示和 TODO，**实现由用户自己写**；
+- `numpy与Tensor对照.md` —— 计划第五节第 2 条要的那张对照表。
 
 ### 2026-10-28 — 建表（半月制 v1）
 

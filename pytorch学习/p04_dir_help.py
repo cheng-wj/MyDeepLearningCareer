@@ -9,10 +9,21 @@ P04 Python学习中的两大法宝函数：dir() 和 help()
 """
 import torch
 
-print(dir(torch)[:5])
-print(dir(torch.cuda)[:5])
-help(torch.cuda.is_available)
+# print(dir(torch)[:5])
+# print(dir(torch.cuda)[:5])
+# help(torch.cuda.is_available)
 # print([n for n in dir(torch) if not n.startswith('_')])
 
 # TODO: 用 dir() 查看 torch 和 torch.cuda 的成员
 # TODO: 用 help() 查看 is_available / 其他你感兴趣的函数的说明
+
+dtype = torch.float
+device =torch.device("cuda")
+a=torch.randn(2,3,dtype=dtype)
+b=torch.randn(2,3,dtype=dtype)
+
+print(a)
+print(b)
+print(a.sum)
+print(a.max())
+print(a*b)

@@ -49,9 +49,18 @@ pip install torch torchvision --index-url https://mirror.nju.edu.cn/pytorch/whl/
 ## 学习路线
 
 > 当前进度与推进安排见 `pytorch学习/PyTorch推进表_半月制.md`（2026-10-28 起为唯一执行依据）。
-> 下一场：**S1** → P06 快进 + P07 Dataset + P14 torchvision 数据集。
+> **当前阶段：Python 基础 7 天**（2026-11-04 起）→ 计划 `Python基础/Python学习计划-7天.md`，关卡骨架 `Python基础/d1`–`d7`，语法卡壳查 `Python基础/numpy与Tensor对照.md`。
+> 毕业线达成后回 PyTorch 主线 **S1**（P06 快进 + P07 Dataset + P14 torchvision 数据集）。
 > （10-28 起的 S1–S4 档期已过且未执行，按「允许顺延、禁止回补」依次往后排。）
 
+- [ ] **00. Python 语法基础**（`Python基础/`，2026-11-04 起，先于 PyTorch）
+  - [ ] D1 程序与数据类型 → `d1_公差判定.py`
+  - [ ] D2 分支循环 + 列表 → `d2_列表与切片.py`
+  - [ ] D3 字符串 + 字典 → `d3_字典与表格.py`
+  - [ ] D4 函数（默认参数 / `*args` / `**kwargs`）→ `d4_函数.py`
+  - [ ] D5 类与对象 · 上（继承 / `self` / `super()`）→ `d5_类与对象.py`
+  - [ ] D6 类与对象 · 下（`__getitem__` / `__call__`）+ 模块异常 → `d6_模块与异常.py`
+  - [ ] D7 毕业考（5 题）→ `d7_毕业考.py`
 - [x] **01. PyTorch 基础**（`01-pytorch-basics/`）
   - [x] 01 张量基础：创建、形状、GPU、广播
   - [x] 02 自动求导：autograd 与手写训练循环

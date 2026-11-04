@@ -15,3 +15,6 @@ from torch.utils.data import Dataset
 #   __getitem__: 根据 index 返回 (图片, 标签)
 
 # TODO: 实例化，用 len() 和 obj[0] 验证
+import torch
+
+print(dir(torch))
