@@ -50,6 +50,7 @@ pip install torch torchvision --index-url https://mirror.nju.edu.cn/pytorch/whl/
 
 > 当前进度与推进安排见 `pytorch学习/PyTorch推进表_半月制.md`（2026-10-28 起为唯一执行依据）。
 > **当前阶段：Python 基础 7 天**（2026-11-04 起）→ 计划 `Python基础/Python学习计划-7天.md`，关卡骨架 `Python基础/d1`–`d7`，语法卡壳查 `Python基础/numpy与Tensor对照.md`。
+> **换工作区 / 换会话时先读 `交接说明.md`** —— 里面有当前状态、下一步和这台机的所有坑。
 > 毕业线达成后回 PyTorch 主线 **S1**（P06 快进 + P07 Dataset + P14 torchvision 数据集）。
 > （10-28 起的 S1–S4 档期已过且未执行，按「允许顺延、禁止回补」依次往后排。）
 

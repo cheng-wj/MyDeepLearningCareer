@@ -47,6 +47,7 @@ python pytorch学习\p04_dir_help.py
 - `01-pytorch-basics/` — 已完成的四课：张量、autograd、MLP 双月、MNIST CNN
 - `pytorch学习/` — 小土堆教程跟练骨架（`p04` … `p32`）+ 进度清单 + 推进表（当前执行依据 `PyTorch推进表_半月制.md`；更早的三份旧表存档）
 - `Python基础/` — Python 语法阶段（2026-11-04 起，先于 PyTorch 主线）：`Python学习计划-7天.md` + 关卡骨架 `d1`–`d7` + `numpy与Tensor对照.md`
+- `交接说明.md` — **换工作区 / 换会话时先读这份**：当前状态、下一步、本机环境与坑（含 DSH 工作区归属机制）
 - `data/` `checkpoints/` `outputs/` `logs/` — 运行产物，已 gitignore，不入库
 - `requirements.txt` / `README.md` / `.gitignore`
 
