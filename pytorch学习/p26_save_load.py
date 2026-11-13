@@ -11,4 +11,4 @@ P26 网络模型的保存与读取
 import torch
 
 # TODO: 用 P25 的 vgg16 或 P22 的 CifarNet 分别试两种保存/读取
-# 权重存到仓库根目录的 checkpoints/ 文件夹（已 gitignore）
+# 权重存到仓库根目录的 运行产物/checkpoints/ 文件夹（已 gitignore）

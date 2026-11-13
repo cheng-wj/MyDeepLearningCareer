@@ -56,7 +56,7 @@ def main():
         transforms.Normalize(MNIST_MEAN, MNIST_STD),
     ])
 
-    data_dir = ROOT / "data"
+    data_dir = ROOT / "运行产物" / "data"
     train_set = datasets.MNIST(data_dir, train=True, download=True, transform=transform)
     test_set = datasets.MNIST(data_dir, train=False, download=True, transform=transform)
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
@@ -91,7 +91,8 @@ def main():
         acc = evaluate()
         print(f"epoch {epoch} | train loss {total_loss / len(train_set):.4f} | test acc {acc:.4f}")
 
-    ckpt = ROOT / "checkpoints" / "mnist_cnn.pt"
+    ckpt = ROOT / "运行产物" / "checkpoints" / "mnist_cnn.pt"
+    ckpt.parent.mkdir(parents=True, exist_ok=True)
     torch.save(model.state_dict(), ckpt)
     print(f"模型权重已保存到 {ckpt}")
 

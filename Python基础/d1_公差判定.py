@@ -21,6 +21,14 @@ TODO:
   1. 定义 标准值、上下公差、实测值列表 三个变量
   2. 用 for 遍历实测值，算偏差、判断超差，打印一行结果
   3. 统计合格数与不合格数，最后打印汇总
+
+期望输出（写完自己对照，合格 2 / 不合格 3）：
+  1 号 99.940  偏差 -0.060  → NG      ← 超差
+  2 号 100.020 偏差 +0.020  → OK
+  3 号 100.070 偏差 +0.070  → NG      ← 超差
+  4 号 99.980  偏差 -0.020  → OK
+  5 号 100.051 偏差 +0.051  → NG      ← 浮点边界坑：实际是 0.05100000000000456
+  汇总：合格 2 个，不合格 3 个
 """
 # 标准值 100.0，公差 ±0.05
 # 实测值列表：[99.94, 100.02, 100.07, 99.98, 100.051]
@@ -33,8 +41,27 @@ TODO:
 #   f"{v:.3f}"                          保留 3 位小数
 
 # TODO: 在下面写你的代码
+def check_tolerance(values, standard, tolerance):
+    ok_count = 0
+    ng_count = 0
+    # enumerate(values, start=1)：i 从 1 开始数，v 就是值本身（不用再写 values[i]）
+    for i, v in enumerate(values, start=1):
+        deviation = v - standard                      # 带符号的偏差
+        if abs(deviation) > tolerance:                # 用 > 判超差，不用 ==（浮点边界）
+            flag = "NG"
+            ng_count += 1
+        else:
+            flag = "OK"
+            ok_count += 1
+        # :.3f 固定3位小数；:+.3f 强制带正负号
+        print(f"{i} 号 {v:.3f}  偏差 {deviation:+.3f}  → {flag}")
+    return ok_count, ng_count
 
 
 if __name__ == "__main__":
-    # TODO: 在这里调用你上面写的逻辑（提示：写成函数再调用更好练）
-    pass
+    values = [99.940, 100.020, 100.070, 99.980, 100.051]
+    standard = 100.0
+    tolerance = 0.05
+
+    ok, ng = check_tolerance(values, standard, tolerance)
+    print(f"汇总：合格 {ok} 个，不合格 {ng} 个")

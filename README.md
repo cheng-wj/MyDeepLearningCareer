@@ -20,7 +20,7 @@
 | 驱动 / 驱动支持 CUDA | 617.14 / 12.8 | 591.74 / 13.1 |
 | torch 内置 CUDA | cu128 | cu126（cudnn 91002） |
 | `torch.cuda.is_available()` | True | True（2026-11-02 实测 GPU matmul 通过） |
-| 数据集 `data/` | MNIST + CIFAR10 已就绪 | **空，需重新下载** |
+| 数据集 `运行产物/data/` | MNIST + CIFAR10 已就绪 | **空，需重新下载** |
 
 > 个人机列实测于 2026-10-01；公司机列实测于 2026-11-02（脚本链路 `p04` 跑通、CUDA 端到端 matmul 通过、`torch.cuda.is_available()` = True）。
 > 公司机只有 C、D 两个盘，没有 E 盘；`F:\我的知识库` 所在的外接硬盘盒未挂载时，记忆库取不到。
@@ -74,4 +74,4 @@ pip install torch torchvision --index-url https://mirror.nju.edu.cn/pytorch/whl/
 ## 约定
 
 - 每个脚本都可以直接 `python xxx.py` 运行，注释里写清知识点
-- 数据集放在 `data/`、模型权重放在 `checkpoints/`、图片放在 `outputs/`，均不入库
+- 数据集放在 `运行产物/data/`、模型权重放在 `运行产物/checkpoints/`、图片放在 `运行产物/outputs/`，均不入库

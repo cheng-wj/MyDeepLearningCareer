@@ -2,12 +2,12 @@
 P08/P09 TensorBoard 的使用
 知识点：
   - from torch.utils.tensorboard import SummaryWriter
-  - writer = SummaryWriter("logs")
+  - writer = SummaryWriter("运行产物/logs")
   - writer.add_scalar("标题", 数值y, 步数x)      画曲线
   - writer.add_image("标题", 图片, 步数, dataformats="HWC")  画图片
   - writer.close()
-查看：终端运行  tensorboard --logdir=logs  然后浏览器打开提示的地址
-注意：add_scalar 标题相同但 x/y 对不上时曲线会乱，换标题或清空 logs 文件夹
+查看：终端运行  tensorboard --logdir=运行产物/logs  然后浏览器打开提示的地址
+注意：add_scalar 标题相同但 x/y 对不上时曲线会乱，换标题或清空 运行产物/logs 文件夹
 """
 from torch.utils.tensorboard import SummaryWriter
 import numpy as np

@@ -15,7 +15,7 @@
 
 环境（两台机路径/版本不同，**先对一眼自己这台机**）：个人机 `DESKTOP-GHMSTA8` 用 `E:\conda\envs\torch\python.exe`（Python 3.12.14 / torch 2.11.0+cu128 / tv 0.26.0+cu128 / RTX 2060 SUPER 8GB）；公司机 `DESKTOP-R4RRO1S` 用 `D:\anaconda3\envs\torch\python.exe`（Python 3.11.16 / torch 2.14.0+cu126 / tv 0.29.0+cu126 / RTX 2060 6GB）。两机 `torch.cuda.is_available()` 均为 True，显卡同属 Turing sm_61，代码通用。完整对照见根 `README.md`「环境（双机对照）」。
 运行前 `conda activate torch`；不使用 conda 时直接用上面对应的绝对路径调 python.exe。
-数据集自动下载到仓库根目录 `data/`，权重放 `checkpoints/`，TensorBoard 日志放 `logs/`，均已 gitignore。**个人机上 `data/` 已就绪；公司机 `data/` 是空的，要重新下载。**
+数据集自动下载到仓库根目录 `运行产物/data/`，权重放 `运行产物/checkpoints/`，TensorBoard 日志放 `运行产物/logs/`，均已 gitignore。**个人机上 `运行产物/data/` 已就绪；公司机 `运行产物/data/` 是空的，要重新下载。**
 
 ## 进度清单
 

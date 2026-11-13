@@ -25,7 +25,7 @@
 | GPU | RTX 2060 SUPER（8GB），驱动 617.14 | RTX 2060（6GB），驱动 591.74 |
 | 显卡架构 | Turing sm_61 | Turing sm_61（一致，代码通用） |
 | `torch.cuda.is_available()` | True | True（2026-11-02 实测 GPU matmul 通过） |
-| `data/` | MNIST + CIFAR10 已就绪 | **空，要重新下载** |
+| `运行产物/data/` | MNIST + CIFAR10 已就绪 | **空，要重新下载** |
 
 ```powershell
 # 方式一：绝对路径（最稳，任何终端都能用）—— 换机器就换这一行
@@ -48,7 +48,7 @@ python pytorch学习\p04_dir_help.py
 - `pytorch学习/` — 小土堆教程跟练骨架（`p04` … `p32`）+ 进度清单 + 推进表（当前执行依据 `PyTorch推进表_半月制.md`；更早的三份旧表存档）
 - `Python基础/` — Python 语法阶段（2026-11-04 起，先于 PyTorch 主线）：`Python学习计划-7天.md` + 关卡骨架 `d1`–`d7` + `numpy与Tensor对照.md`
 - 换工作区 / 换会话时先读 `pytorch学习/PyTorch推进表_半月制.md` 顶部的当前状态与第八节双机环境；历史交接说明位于 `pytorch学习/历史计划/交接说明.md`，旧日期和路径仅供追溯。
-- `data/` `checkpoints/` `outputs/` `logs/` — 运行产物，已 gitignore，不入库
+- `运行产物/data/` `运行产物/checkpoints/` `运行产物/outputs/` `运行产物/logs/` — 运行产物，已 gitignore，不入库
 - `requirements.txt` / `README.md` / `.gitignore`
 
 ## 执行依据
@@ -68,7 +68,7 @@ python pytorch学习\p04_dir_help.py
 - 注释和文档字符串用中文，把知识点写清楚，不只是描述代码在做什么
 - 每个脚本都能独立 `python xxx.py` 直接跑，不依赖其他脚本的 import
 - 打印关键指标（loss、accuracy、显存），让"跑通了"是可验证的
-- 数据集 `root="./data"` 相对仓库根目录；权重进 `checkpoints/`，日志进 `logs/`
+- 数据集 `root="./运行产物/data"` 相对仓库根目录；权重进 `运行产物/checkpoints/`，日志进 `运行产物/logs/`
 - 无测试框架、无 lint 配置、无 CI —— 验证方式就是**把脚本跑起来看输出**
 
 ## 提交约定

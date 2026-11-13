@@ -105,8 +105,8 @@ def main():
                 acc = (pred == y_test_t).float().mean().item()
             print(f"epoch {epoch:3d} | train loss {total_loss / n_train:.4f} | test acc {acc:.4f}")
 
-    ckpt = ROOT / "checkpoints" / "moons_mlp.pt"
-    ckpt.parent.mkdir(exist_ok=True)
+    ckpt = ROOT / "运行产物" / "checkpoints" / "moons_mlp.pt"
+    ckpt.parent.mkdir(parents=True, exist_ok=True)
     torch.save(model.state_dict(), ckpt)
     print(f"模型权重已保存到 {ckpt}")
 
@@ -128,8 +128,8 @@ def main():
                 edgecolors="k", s=18, alpha=0.8)
     plt.title(f"Two Moons - MLP (test acc {acc:.2%})")
     plt.tight_layout()
-    out = ROOT / "outputs" / "moons_decision_boundary.png"
-    out.parent.mkdir(exist_ok=True)
+    out = ROOT / "运行产物" / "outputs" / "moons_decision_boundary.png"
+    out.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(out, dpi=150)
     print(f"决策边界图已保存到 {out}")
 

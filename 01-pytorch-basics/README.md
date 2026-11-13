@@ -19,4 +19,4 @@ python 01-pytorch-basics/03_mlp_moons.py
 python 01-pytorch-basics/04_cnn_mnist.py
 ```
 
-数据集、权重、图片分别输出到仓库根目录的 `data/`、`checkpoints/`、`outputs/`。
+数据集、权重、图片分别输出到仓库根目录的 `运行产物/data/`、`运行产物/checkpoints/`、`运行产物/outputs/`。
