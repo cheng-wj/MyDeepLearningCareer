@@ -41,6 +41,37 @@ TODO:
 #   f"{v:.3f}"                          保留 3 位小数
 
 # TODO: 在下面写你的代码
+#
+# ┌────────────────────────────────────────────────────────────┐
+# │ ① 自己写的版本（2026-11-13 深夜）—— 保留作对照，逻辑正确、  │
+# │    结果正确（合格2/不合格3），只是打印格式没对齐              │
+# └────────────────────────────────────────────────────────────┘
+#
+# def check_tolerance(values,standard,tolerance):
+#     ok_count=0
+#     ng_count=0
+#     for i in range(len(values)):
+#         if abs(values[i]-standard)>tolerance:
+#             ng_count += 1
+#             print(i,"号",values[i],",NG")
+#         else:
+#             ok_count+=1
+#             print(i,"号",values[i],",OK")
+#     return ok_count,ng_count
+#
+# if __name__ == "__main__":
+#     values = [99.940,100.020,100.070,99.980,100.051]
+#     standard = 100.0
+#     tolerance = 0.05
+#     ok,ng=check_tolerance(values,standard,tolerance)
+#     print("OK总计:",ok,",NG总计:",ng)
+#     pass
+
+
+# ┌────────────────────────────────────────────────────────────┐
+# │ ② 改进版本 —— 打印格式对齐期望输出：序号从1起、补偏差列、   │
+# │    小数固定3位。改动点见每行右侧注释                          │
+# └────────────────────────────────────────────────────────────┘
 def check_tolerance(values, standard, tolerance):
     ok_count = 0
     ng_count = 0
