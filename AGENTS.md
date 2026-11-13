@@ -47,13 +47,15 @@ python pytorch学习\p04_dir_help.py
 - `01-pytorch-basics/` — 已完成的四课：张量、autograd、MLP 双月、MNIST CNN
 - `pytorch学习/` — 小土堆教程跟练骨架（`p04` … `p32`）+ 进度清单 + 推进表（当前执行依据 `PyTorch推进表_半月制.md`；更早的三份旧表存档）
 - `Python基础/` — Python 语法阶段（2026-11-04 起，先于 PyTorch 主线）：`Python学习计划-7天.md` + 关卡骨架 `d1`–`d7` + `numpy与Tensor对照.md`
-- `交接说明.md` — **换工作区 / 换会话时先读这份**：当前状态、下一步、本机环境与坑（含 DSH 工作区归属机制）
+- 换工作区 / 换会话时先读 `pytorch学习/PyTorch推进表_半月制.md` 顶部的当前状态与第八节双机环境；历史交接说明位于 `pytorch学习/历史计划/交接说明.md`，旧日期和路径仅供追溯。
 - `data/` `checkpoints/` `outputs/` `logs/` — 运行产物，已 gitignore，不入库
 - `requirements.txt` / `README.md` / `.gitignore`
 
 ## 执行依据
 
 `pytorch学习/PyTorch推进表_半月制.md` 是**当前唯一执行依据**（2026-10-28 取代 `PyTorch推进表_场次制.md`；场次制表及更早的 `PyTorch推进表_轻松版.md`、v3 `国庆节PyTorch推进表.md` 保留不删、不再改动，其环境实测、踩坑记录、C# ↔ PyTorch 对照表、常见坑点、备用命令仍被引用）。修订记录写在该文档末尾。
+
+上述旧表及早期 DeepSeek 计划已归档至 `pytorch学习/历史计划/`；保持原文，当前推进表的旧文件名引用均在该目录查找。
 
 **当前阶段（2026-11-04 起）**：第九节「Python 前置阶段」**先于** S1 —— 用户看 P07 视频后判断 Python 语法不过关，改走 `Python基础/Python学习计划-7天.md`（小甲鱼 86 集选看，7 天约 14h）。Python 毕业线达成后才回 S1，PyTorch 主线整体顺延。**不要在 Python 阶段催他写 P07**。
 
