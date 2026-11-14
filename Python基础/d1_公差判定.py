@@ -30,6 +30,7 @@ TODO:
   5 号 100.051 偏差 +0.051  → NG      ← 浮点边界坑：实际是 0.05100000000000456
   汇总：合格 2 个，不合格 3 个
 """
+
 # 标准值 100.0，公差 ±0.05
 # 实测值列表：[99.94, 100.02, 100.07, 99.98, 100.051]
 #
@@ -77,8 +78,8 @@ def check_tolerance(values, standard, tolerance):
     ng_count = 0
     # enumerate(values, start=1)：i 从 1 开始数，v 就是值本身（不用再写 values[i]）
     for i, v in enumerate(values, start=1):
-        deviation = v - standard                      # 带符号的偏差
-        if abs(deviation) > tolerance:                # 用 > 判超差，不用 ==（浮点边界）
+        deviation = v - standard  # 带符号的偏差
+        if abs(deviation) > tolerance:  # 用 > 判超差，不用 ==（浮点边界）
             flag = "NG"
             ng_count += 1
         else:
